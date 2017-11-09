@@ -23,9 +23,23 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      redirect to "/recipes/index"
+      redirect to "/recipes"
     end
   end
+
+  post "/login" do
+    @user = User.find_by(:username => params[:username])
+
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect to "/recipes"
+    else 
+      redirect "/users/login"
+    end
+  end
+
+
+
 
   
 	
