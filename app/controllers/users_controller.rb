@@ -1,37 +1,26 @@
 class UsersController < ApplicationController
 
-  # GET: /users
-  get "/users" do
-    erb :"/users/index.html"
-  end
+	get "/users/signup" do
+		if !logged_in? 
+			erb :"/users/create_user"
+		else 
+			redirect to "/recipes"
+		end
+	end
 
-  # GET: /users/new
-  get "/users/new" do
-    erb :"/users/new.html"
-  end
+	post "/create_user" do
+		if params[:username] == "" || params[:password] == ""
+			erb :"/users/create_user"
+		else 
+			@user = User.create(username: params[:username], password: params[:password])
+			@user.save
+			
+			erb :"/users/index"
 
-  # POST: /users
-  post "/users" do
-    redirect "/users"
-  end
+		end
+	end
 
-  # GET: /users/5
-  get "/users/:id" do
-    erb :"/users/show.html"
-  end
 
-  # GET: /users/5/edit
-  get "/users/:id/edit" do
-    erb :"/users/edit.html"
-  end
+	
 
-  # PATCH: /users/5
-  patch "/users/:id" do
-    redirect "/users/:id"
-  end
-
-  # DELETE: /users/5/delete
-  delete "/users/:id/delete" do
-    redirect "/users"
-  end
 end
