@@ -13,10 +13,9 @@ class UsersController < ApplicationController
 			erb :"/users/create_user"
 		else 
 			@user = User.create(username: params[:username], password: params[:password])
-			@user.save
-			
+			@user.save		
+			session[:user_id] = @user.id		
 			erb :"/users/index"
-
 		end
 	end
 
