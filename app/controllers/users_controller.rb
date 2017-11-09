@@ -15,11 +15,19 @@ class UsersController < ApplicationController
 			@user = User.create(username: params[:username], password: params[:password])
 			@user.save		
 			session[:user_id] = @user.id		
-			erb :"/users/index"
+			erb :"/recipes/index"
 		end
 	end
 
+	get '/users/login' do 
+    if !logged_in?
+      erb :'/users/login'
+    else
+      redirect to "/recipes/index"
+    end
+  end
 
+  
 	
 
 end
