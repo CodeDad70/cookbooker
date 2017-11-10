@@ -6,17 +6,22 @@ class RecipesController < ApplicationController
   use Rack::Flash
   
   get '/recipes' do
-  	@user = current_user
+    @user = current_user
+    erb :"/recipes/index"
+  end
+
+  get "/recipes/user_index" do
+    @user = current_user
     @recipes = @user.recipes
 
-  	if logged_in?  
+    if logged_in?  
      
-   	 erb :'/recipes/index'
-  	else
-  		redirect to "/users/login"
-    
-  	end
+     erb :"/recipes/user_index"
+    else
+      redirect to "/users/login"  
+    end
   end
+
 
   get '/recipes/new' do
   	if logged_in? 
@@ -55,10 +60,6 @@ class RecipesController < ApplicationController
       erb :"users/login"
     end
   end 
-
-   
-
- 
 
   
 end

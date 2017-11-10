@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 		if !logged_in? 
 			erb :"/users/create_user"
 		else 
-			redirect to "/recipes"
+			redirect to "/recipes/user_index"
 		end
 	end
 
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 			@user = User.create(username: params[:username], password: params[:password])
 			@user.save		
 			session[:user_id] = @user.id		
-			erb :"/recipes/create_recipe"
+			erb :"/recipes/index"
 		end
 	end
 
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
     if !logged_in?
       erb :'/users/login'
     else
-      redirect to "/recipes"
+      redirect to "/recipes/user_index"
     end
   end
 
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     user = User.find_by(:username => params[:username])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect to "/recipes"
+      redirect to "/recipes/user_index"
     else 
     	flash[:message] = "Login or Password is incorrect - please try again"
       erb :"/users/login"

@@ -1,27 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>CookBooker</title>
+	<title>CookBooker Recipes</title>
 </head>
 <body>
-	<h1>Welcome, <%=@user.username%></h1>
-	<h4>Here are your recipes : </h4><br>
-	<%@recipes.each do |recipe|%>
-	<li>
-		<a href="/recipes/<%=recipe.id%>"><p><%=recipe.name%></p></a>
-	</li>
-	<%end%>
+	<h1>Welcome to CookBooker, <%=@user.username%> </h1>
 
-	<a href="/recipes/new">Create a New Recipe</a><br><br><br>
-
-
-	<h4>Here are the communities recipes:</h4><br>
-	<%Recipe.all.each do |recipe|%>
+	<h2> Get started by <a href="recipes/create_recipe"> creating your own recipe</a></h2><br><br>
+		<h4>Need inpiration ? Here are the recipes posted by other users:</h4><br><br>
 		<li>
-			<a href="/recipes/<%=recipe.id%>"><p><%=recipe.name%></p></a>
+		<%Recipe.all.each do |recipe|%>
+			<a href="/recipes/<%=recipe.id%>"><%=recipe.name%></a> by <%=recipe.user.username%><br><br>
 			<%end%>
 		</li>
 
+
+
+	
 
 </body>
 </html>
