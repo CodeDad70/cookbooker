@@ -4,12 +4,14 @@
 	<title>Here's your Recipe</title>
 </head>
 <body>
-	<h1><%=@recipe.name%> -  by <%=@user.username%></h1> <br><br>
-	<h4>Ingredients: <br><%=@recipe.ingredients%></h4><br><br>
-	<h4>Instructions:<br> <%=@recipe.instructions%></h4><br><br>
+	<h1><%=@recipe.name%> -  by <%=@user.username%></h1> <br><br><br><br>
+	
+	<h4>Ingredients: </h4><p><br><%=@recipe.ingredients%></p>
+	
+	<h4>Instructions:</h4><br> <p><%=@recipe.instructions%></p>
  
 	<form method="href" action="/recipes/<%=@recipe.id%>/edit">
-		<input type="submit" value=" EDIT this recipe ">
+		<input type="submit" value=" EDIT Recipe "><br><br><br><br>
 	</form>
 
 	<form method="post" action="/recipes/<%=@recipe.id%>/delete">

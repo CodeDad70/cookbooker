@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head> <title> Edit Your Recipe </title>
-  </head>
+<head>
+  <title>Edit your Recipe</title>
+</head>
+<body>
+  <h1><%=@recipe.name%> -  by <%=@user.username%></h1> 
+  <form method="href" action="/recipes/<%=@recipe.id%>/edit_name">
+    <input type="submit" value=" EDIT Name "><br><br><br><br>
+  </form>
+  <h4>Ingredients: </h4><p><br><%=@recipe.ingredients%></p>
+  <form method="href" action="/recipes/<%=@recipe.id%>/edit">
+    <input type="submit" value=" EDIT Ingredients "><br><br><br><br>
+  </form>
+  <h4>Instructions:</h4><br> <p><%=@recipe.instructions%></p>
+ 
+  <form method="href" action="/recipes/<%=@recipe.id%>/edit">
+    <input type="submit" value=" EDIT Instructions "><br><br><br><br>
+  </form>
 
-  <body>
-    <h1>Edit Your Recipe </h1><br><br>
-    <h4>Original Name: <%=@recipe.name%></h4><br>
-    
-    <form action="/recipes/<%=@recipe.id%>" method="post">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-		New Name:<br>
-		<input type="text" name="name"  placeholder="<%=@recipe.name%>"><br><br>
-     
-    New Ingredients:<br>
-    <input type="text" name="ingredients" placeholder="<%=@recipe.ingredients%>"><br><br>
-      
+  <form method="post" action="/recipes/<%=@recipe.id%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete"><br><br>
 
-    New Name:<br>
-    <input type="text" name="instructions" placeholder="<%=@recipe.instructions%>"><br><br>
-      <button type="submit" value="submit">Submit</button><br><br>  
-
-    
-
-    <% if flash.has?(:message) %>
-  	<%= flash[:message] %>
-		<% end %>
-		
-    </form>
+    <input type="submit" value=" DELETE this recipe " ><br><br><br>
+    <form>
   
-  </body>
-</html>
 
+  <a href="/recipes/user_index"> Back to your list of recipes</a>
+
+</body>
+</html>
 
 
