@@ -3,20 +3,27 @@
   <head> <title> Edit Your Recipe </title>
   </head>
 
+
   <body>
     <h1>Edit Your Recipe </h1><br><br>
+    <h4>Change one or more of your recipes details..</h4><br><br>
     <h4>Original Name: <%=@recipe.name%></h4><br>
     
     <form action="/recipes/<%=@recipe.id%>" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
+
 		New Name:<br>
 		<input type="text" name="name"  placeholder="<%=@recipe.name%>"><br><br>
+
+    <h4>Original Ingredients: <%=@recipe.ingredients%></h4><br>
      
     New Ingredients:<br>
     <input type="text" name="ingredients" placeholder="<%=@recipe.ingredients%>"><br><br>
+
+    <h4>Original Instructions: <%=@recipe.name%></h4><br>
       
 
-    New Name:<br>
+    New Instructions:<br>
     <input type="text" name="instructions" placeholder="<%=@recipe.instructions%>"><br><br>
       <button type="submit" value="submit">Submit</button><br><br>  
 

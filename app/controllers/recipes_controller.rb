@@ -117,10 +117,39 @@ class RecipesController < ApplicationController
         @recipe.update(instructions: params["instructions"])
         @recipe.save
         redirect "/recipes/#{@recipe.id}"
-        
-      else
-        flash[:message] = "Please fill out all fields"
+
+      elsif logged_in? && params["name"] != "" && params["ingredients"]!="" && params["instructions"]== ""
+        @recipe.update(name: params["name"])
+        @recipe.update(ingredients: params["ingredients"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+
+      elsif logged_in? && params["ingredients"] != "" && params["instructions"]!="" && params["name"]== ""
+        @recipe.update(instructions: params["instructions"])
+        @recipe.update(ingredients: params["ingredients"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+
+      elsif logged_in? && params["name"] != "" && params["instructions"]!="" && params["ingredients"]== ""
+        @recipe.update(name: params["name"])
+        @recipe.update(instructions: params["instructions"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+
+      
+      elsif logged_in? && params["name"] == "" && params["instructions"] =="" && params["ingredients"]== ""
+        flash[:message] = "Please make a change to at least one field"
         erb :"/recipes/edit"
+      
+
+
+      else 
+        @recipe.update(name: params["name"])
+        @recipe.update(ingredients: params["ingredients"])
+        @recipe.update(instructions: params["instructions"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+      
       end
     end
 
