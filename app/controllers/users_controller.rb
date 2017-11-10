@@ -25,7 +25,7 @@ class UsersController < ApplicationController
 			@user = User.create(username: params[:username], password: params[:password])
 			@user.save		
 			session[:user_id] = @user.id		
-			erb :"/recipes/index"
+			erb :"/recipes/create_recipe"
 		end
 	end
 
