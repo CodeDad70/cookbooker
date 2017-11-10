@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
 	post "/create_user" do
 		if params[:username] == "" || params[:password] == "" 
+			flash[:message] = "Please fill out all fields"
 			erb :"/users/create_user"
 
 		elsif User.exists?(username: params[:username])
@@ -42,7 +43,8 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       redirect to "/recipes"
     else 
-      redirect "/users/login"
+    	flash[:message] = "Login or Password is incorrect - please try again"
+      erb :"/users/login"
     end
   end
 

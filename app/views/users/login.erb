@@ -7,7 +7,11 @@
 	<form action="/login" method="POST">
 		<label>Login: </label><input type="text" name="username" placeholder="Login"><br><br>
 		<label>Password: </label><input type="text" name="password" placeholder="Password"><br><br>
-		<input type="submit" value="Login">
+		<input type="submit" value="Login"> <br><br>
+
+		<% if flash.has?(:message) %>
+  	<%= flash[:message] %>
+		<% end %>
 
 	</form>
 
