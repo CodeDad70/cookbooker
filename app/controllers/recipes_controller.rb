@@ -40,7 +40,7 @@ class RecipesController < ApplicationController
     if params[:name] == ""
       flash[:message] = "Please name your recipe"
       erb :"/recipes/create_recipe"
-    elsif params[:ingredients] == ""flash[:message] = "Please Login to create a recipe"
+    elsif params[:ingredients] == ""
       flash[:message] = "Please enter your ingredients"
       erb :"/recipes/create_recipe"
     elsif params[:instructions] == ""
@@ -93,8 +93,8 @@ class RecipesController < ApplicationController
         redirect "/recipes/#{@recipe.id}"
         
       else
-         
-        redirect to "/recipes/#{@recipe.id}/edit"
+        flash[:message] = "Please fill out all fields"
+        erb :"/recipes/edit"
       end
     end
 

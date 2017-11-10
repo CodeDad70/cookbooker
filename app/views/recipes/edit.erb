@@ -10,7 +10,12 @@
     <input id="hidden" type="hidden" name="_method" value="patch">
 		New Name:<br>
 		<input type="text" name="name" id="name" placeholder="<%=@recipe.name%>"><br><br>
-      <button type="submit" value="submit">Submit</button>
+      <button type="submit" value="submit">Submit</button><br><br>
+
+    <% if flash.has?(:message) %>
+  	<%= flash[:message] %>
+		<% end %>
+		
     </form>
   </body>
 </html>
