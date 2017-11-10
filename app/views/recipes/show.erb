@@ -4,13 +4,22 @@
 	<title>Here's your Recipe</title>
 </head>
 <body>
-	<h1><%=@user.username%>'s <%=@recipe.name%></h1> <br><br>
-	<h4>Ingredients: <%=@recipe.ingredients%></h4><br><br>
-	<h4>Instructions: <%=@recipe.instructions%></h4><br><br>
+	<h1><%=@recipe.name%> -  by <%=@user.username%></h1> <br><br>
+	<h4>Ingredients: <br><%=@recipe.ingredients%></h4><br><br>
+	<h4>Instructions:<br> <%=@recipe.instructions%></h4><br><br>
+ 
+	<form method="href" action="/recipes/<%=@recipe.id%>/edit">
+		<input type="submit" value=" EDIT this recipe ">
+	</form>
+
+	<form method="post" action="/recipes/<%=@recipe.id%>/delete">
+    <input id="hidden" type="hidden" name="_method" value="delete"><br><br>
+
+    <input type="submit" value=" DELETE this recipe " ><br><br><br>
+    <form>
+	
 
 	<a href="/recipes/user_index"> Back to your list of recipes</a>
-	<h1>Worked !</h1>
-
 
 </body>
 </html>

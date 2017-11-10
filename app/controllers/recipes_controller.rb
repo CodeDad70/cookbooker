@@ -76,7 +76,6 @@ class RecipesController < ApplicationController
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
       
-      @recipe = Recipe.find_by(id: params[:id])
       if logged_in? && @user.id == @recipe.user_id
         erb :'/recipes/edit'
       else
@@ -89,12 +88,26 @@ class RecipesController < ApplicationController
     
       if logged_in? && !params["name"].empty?
         @recipe.update(name: params["name"])
+        @recipe.update(ingredients: params["ingredients"])
+        @recipe.update(instructions: params["instructions"])
         @recipe.save
         redirect "/recipes/#{@recipe.id}"
         
       else
         flash[:message] = "Please fill out all fields"
         erb :"/recipes/edit"
+      end
+    end
+
+     delete '/recipes/:id/delete' do
+      if logged_in?
+        @recipe = Recipe.find_by_id(params[:id])
+        if @recipe.user_id == current_user.id
+          @recipe.delete
+          redirect to "/recipes/user_index"
+        end
+      else
+        redirect '/login'
       end
     end
 

@@ -6,17 +6,28 @@
   <body>
     <h1>Edit Your Recipe </h1><br><br>
     <h4>Original Name: <%=@recipe.name%></h4><br>
+    
     <form action="/recipes/<%=@recipe.id%>" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
 		New Name:<br>
-		<input type="text" name="name" id="name" placeholder="<%=@recipe.name%>"><br><br>
-      <button type="submit" value="submit">Submit</button><br><br>
+		<input type="text" name="name"  placeholder="<%=@recipe.name%>"><br><br>
+     
+    New Ingredients:<br>
+    <input type="text" name="ingredients" placeholder="<%=@recipe.ingredients%>"><br><br>
+      
+
+    New Name:<br>
+    <input type="text" name="instructions" placeholder="<%=@recipe.instructions%>"><br><br>
+      <button type="submit" value="submit">Submit</button><br><br>  
+
+    
 
     <% if flash.has?(:message) %>
   	<%= flash[:message] %>
 		<% end %>
 		
     </form>
+  
   </body>
 </html>
 
