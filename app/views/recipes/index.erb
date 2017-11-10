@@ -5,14 +5,23 @@
 </head>
 <body>
 	<h1>Welcome, <%=@user.username%></h1>
-	<h4>Here are your recipes!</h4><br>
+	<h4>Here are your recipes : </h4><br>
 	<%@recipes.each do |recipe|%>
 	<li>
 		<a href="/recipes/<%=recipe.id%>"><p><%=recipe.name%></p></a>
 	</li>
 	<%end%>
 
-	<a href="/recipes/new">Create a New Recipe</a>
+	<a href="/recipes/new">Create a New Recipe</a><br><br><br>
+
+
+	<h4>Here are the communities recipes:</h4><br>
+	<%Recipe.all.each do |recipe|%>
+		<li>
+			<a href="/recipes/<%=recipe.id%>"><p><%=recipe.name%></p></a>
+			<%end%>
+		</li>
+
 
 </body>
 </html>
