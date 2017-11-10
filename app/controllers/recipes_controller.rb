@@ -24,12 +24,12 @@ class RecipesController < ApplicationController
 
 
   get '/recipes/new' do
-  	if logged_in? 
-  		erb :'recipes/create_recipe'
-  	else
+    if logged_in? 
+      erb :'recipes/create_recipe'
+    else
       flash[:message] = "Please Login to create a recipe"
-  		erb :"/users/login"
-  	end
+      erb :"/users/login"
+    end
   end
 
   post '/recipes' do
@@ -52,12 +52,14 @@ class RecipesController < ApplicationController
   end
 
   get '/recipes/:id' do
-    if logged_in?
-      @user = current_user
-      @recipe = Recipe.find_by(id: params[:id])
+    @user = current_user
+    @recipe = Recipe.find_by(id: params[:id])
+    if 
+      
+      @user.id == @recipe.user_id
       erb :"/recipes/show"
     else
-      erb :"users/login"
+      erb :"/recipes/view"
     end
   end 
 
