@@ -83,12 +83,37 @@ class RecipesController < ApplicationController
       end
     end
 
+    # patch '/recipes/:id' do
+    #   @recipe = Recipe.find_by_id(params[:id])
+    
+    #   if logged_in? && !params["name"].empty? && !params["ingredients"].empty? && !params["instructions"].empty?
+    #     @recipe.update(name: params["name"])
+    #     @recipe.update(ingredients: params["ingredients"])
+    #     @recipe.update(instructions: params["instructions"])
+    #     @recipe.save
+    #     redirect "/recipes/#{@recipe.id}"
+        
+    #   else
+    #     flash[:message] = "Please fill out all fields"
+    #     erb :"/recipes/edit"
+    #   end
+    # end
+
     patch '/recipes/:id' do
       @recipe = Recipe.find_by_id(params[:id])
+      
     
-      if logged_in? && !params["name"].empty? && !params["ingredients"].empty? && !params["instructions"].empty?
+      if logged_in? && params["name"] != "" && params["ingredients"]=="" && params["instructions"]== ""
         @recipe.update(name: params["name"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+      
+      elsif logged_in? && params["ingredients"] != "" && params["name"]==""  && params["instructions"]==""
         @recipe.update(ingredients: params["ingredients"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+
+      elsif logged_in? && params["instructions"] != "" && params["name"] == "" && params["ingredients"]=="" 
         @recipe.update(instructions: params["instructions"])
         @recipe.save
         redirect "/recipes/#{@recipe.id}"
@@ -98,6 +123,8 @@ class RecipesController < ApplicationController
         erb :"/recipes/edit"
       end
     end
+
+
 
      delete '/recipes/:id/delete' do
       if logged_in?
