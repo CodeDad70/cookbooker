@@ -6,6 +6,15 @@
 <body>
 	<h1>Create a new Recipe: </h1><br>
 	<form method="POST" action="/recipes">
+		<label>Recipe Name: </label><input type="text" name="name"><br><br>
+		<label>Recipe Ingredients: </label><br><textarea rows="4" cols="50" name="ingredients"></textarea><br><br>
+		<label>Instructions for cooking your Recipe: </label><br><textarea rows="4" cols="50" name="instructions"></textarea><br><br><br>
+		<input type="submit" value="Create Your Recipe"><br><br>
+
+
+		<% if flash.has?(:message) %>
+  	<%= flash[:message] %>
+		<% end %>
 		
 	</form>
 

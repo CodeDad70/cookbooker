@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20171109163938) do
     t.string   "name"
     t.text     "ingredients"
     t.text     "instructions"
+    t.integer  "user_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
