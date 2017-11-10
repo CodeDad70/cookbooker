@@ -1,1 +1,19 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<!DOCTYPE html>
+<html>
+  <head> <title> Edit Your Recipe </title>
+  </head>
+
+  <body>
+    <h1>Edit Your Recipe </h1><br><br>
+    <h4>Original Name: <%=@recipe.name%></h4><br>
+    <form action="/recipes/<%=@recipe.id%>" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+		New Name:<br>
+		<input type="text" name="name" id="name" placeholder="<%=@recipe.name%>"><br><br>
+      <button type="submit" value="submit">Submit</button>
+    </form>
+  </body>
+</html>
+
+
+

@@ -4,6 +4,8 @@ require 'rack-flash'
 class RecipesController < ApplicationController
 
   use Rack::Flash
+
+  #-------view recipes -----------------
   
   get '/recipes' do
     @user = current_user
@@ -22,6 +24,8 @@ class RecipesController < ApplicationController
     end
   end
 
+  #------------------create recipes-----------
+
 
   get '/recipes/new' do
     if logged_in? 
@@ -36,7 +40,7 @@ class RecipesController < ApplicationController
     if params[:name] == ""
       flash[:message] = "Please name your recipe"
       erb :"/recipes/create_recipe"
-    elsif params[:ingredients] == ""
+    elsif params[:ingredients] == ""flash[:message] = "Please Login to create a recipe"
       flash[:message] = "Please enter your ingredients"
       erb :"/recipes/create_recipe"
     elsif params[:instructions] == ""
@@ -51,18 +55,48 @@ class RecipesController < ApplicationController
     end
   end
 
+  #-------------recipe pages----------------
+
   get '/recipes/:id' do
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
    
 
-    if 
-      @user.id == @recipe.user_id
+    if logged_in? && @user.id == @recipe.user_id
       erb :"/recipes/show"
     else
       erb :"/recipes/view"
     end
   end 
+
+
+  #--------------edit recipes----------------
+
+  get '/recipes/:id/edit' do
+    @user = current_user
+    @recipe = Recipe.find_by(id: params[:id])
+      
+      @recipe = Recipe.find_by(id: params[:id])
+      if logged_in? && @user.id == @recipe.user_id
+        erb :'/recipes/edit'
+      else
+        redirect 'users/login'    
+      end
+    end
+
+    patch '/recipes/:id' do
+      @recipe = Recipe.find_by_id(params[:id])
+    
+      if logged_in? && !params["name"].empty?
+        @recipe.update(name: params["name"])
+        @recipe.save
+        redirect "/recipes/#{@recipe.id}"
+        
+      else
+         
+        redirect to "/recipes/#{@recipe.id}/edit"
+      end
+    end
 
   
 end
