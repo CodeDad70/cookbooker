@@ -83,41 +83,13 @@ class RecipesController < ApplicationController
       end
     end
 
-    get '/recipes/:id/edit_name' do
-    @user = current_user
-    @recipe = Recipe.find_by(id: params[:id])
-      
-      if logged_in? && @user.id == @recipe.user_id
-        erb :'/recipes/edit_name'
-      else
-        redirect 'users/login'    
-      end
-    end
-
     patch '/recipes/:id' do
-      
-      if logged_in?
-      
-      else 
-        redirect '/login'
-      end
-
       @recipe = Recipe.find_by_id(params[:id])
     
-      if 
-        @recipe.name != ""
+      if logged_in? && !params["name"].empty? && !params["ingredients"].empty? && !params["instructions"].empty?
         @recipe.update(name: params["name"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
-      elsif
-        @recipe.ingredients != ""
         @recipe.update(ingredients: params["ingredients"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
-      elsif
-        @recipe.instructions != ""
         @recipe.update(instructions: params["instructions"])
-        
         @recipe.save
         redirect "/recipes/#{@recipe.id}"
         
