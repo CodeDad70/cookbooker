@@ -1,1 +1,15 @@
-<h1>This is the show page for an individual instance of your model.</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Here's your Recipe</title>
+</head>
+<body>
+	<h1><%=@user.username%>'s <%=@recipe.name%></h1> <br><br>
+	<h4>Ingredients: <%=@recipe.ingredients%></h4><br><br>
+	<h4>Instructions: <%=@recipe.instructions%></h4><br><br>
+
+	<a href="/recipes"> Back to your list of recipes</a>
+
+
+</body>
+</html>

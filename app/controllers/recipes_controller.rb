@@ -7,6 +7,7 @@ class RecipesController < ApplicationController
   
   get '/recipes' do
   	@user = current_user
+    @recipes = @user.recipes.all
   	if logged_in?    
    	 erb :'/recipes/index'
   	else
@@ -33,15 +34,26 @@ class RecipesController < ApplicationController
     elsif params[:instructions] == ""
       flash[:message] = "Please enter your instructions for cooking the recipe"
       erb :"/recipes/create_recipe"
-
    else 
-      @recipe = Recipe.create(name: params[:name], ingredients: params[:ingredients], instructions: params[:insgstructions])
+      @recipe = Recipe.create(name: params[:name], ingredients: params[:ingredients], instructions: params[:instructions])
       @recipe.save
       @user= current_user
       @user.recipes << @recipe
       redirect to "/recipes/#{@recipe.id}"
     end
   end
+
+  get '/recipes/:id' do
+    if logged_in?
+      @user = current_user
+      @recipe = Recipe.find_by(id: params[:id])
+      erb :"/recipes/show"
+    else
+      erb :"users/login"
+    end
+  end 
+
+   
 
  
 
