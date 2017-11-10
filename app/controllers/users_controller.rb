@@ -1,4 +1,9 @@
+require 'sinatra/base'
+require 'rack-flash'
+
 class UsersController < ApplicationController
+
+	use Rack::Flash
 
 	get "/users/signup" do
 		if !logged_in? 
@@ -13,6 +18,7 @@ class UsersController < ApplicationController
 			erb :"/users/create_user"
 
 		elsif User.exists?(username: params[:username])
+			flash[:message] = "Username is taken - please try a different one."
 			erb :"/users/create_user"
 		else 
 			@user = User.create(username: params[:username], password: params[:password])

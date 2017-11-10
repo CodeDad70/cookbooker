@@ -1,6 +1,9 @@
+require 'sinatra/base'
+require 'rack-flash'
+
 class RecipesController < ApplicationController
 
-  # GET: /recipes
+  use Rack::Flash
   
   get '/recipes' do
   	@user = current_user
