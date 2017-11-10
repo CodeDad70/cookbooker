@@ -13,9 +13,9 @@ class RecipesController < ApplicationController
   get "/recipes/user_index" do
     @user = current_user
     @recipes = @user.recipes
+    @recipe_community = Recipe.all
 
     if logged_in?  
-     
      erb :"/recipes/user_index"
     else
       redirect to "/users/login"  
@@ -54,8 +54,9 @@ class RecipesController < ApplicationController
   get '/recipes/:id' do
     @user = current_user
     @recipe = Recipe.find_by(id: params[:id])
+   
+
     if 
-      
       @user.id == @recipe.user_id
       erb :"/recipes/show"
     else

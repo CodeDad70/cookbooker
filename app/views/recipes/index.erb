@@ -6,7 +6,7 @@
 <body>
 	<h1>Welcome to CookBooker, <%=@user.username%> </h1>
 
-	<h2> Get started by <a href="recipes/create_recipe"> creating your own recipe</a></h2><br><br>
+	<h2> Get started by <a href="recipes/new"> creating your own recipe</a></h2><br><br>
 		<h4>Need inpiration ? Here are the recipes posted by other users:</h4><br><br>
 		<li>
 		<%Recipe.all.each do |recipe|%>
