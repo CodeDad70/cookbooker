@@ -7,14 +7,17 @@
 	<h1>Create a new Recipe: </h1><br>
 	<form method="POST" action="/recipes">
 		<label>Recipe Name: </label><input type="text" name="name"><br><br>
-		<label>Recipe Ingredients: </label><br><textarea rows="4" cols="50" name="ingredients"></textarea><br><br>
+		<label>Recipe Ingredients: </label><br><textarea rows="4" cols="50" name="ingredients"></textarea><br>
+		<small>CookBooker tip - if you want a line break in your ingredient list just add &lt;br&gt; after the ingredient.<br> For example - "1 carrot &lt;br&gt;" </small><br><br>
 		<label>Instructions for cooking your Recipe: </label><br><textarea rows="4" cols="50" name="instructions"></textarea><br><br><br>
 		<input type="submit" value="Create Your Recipe"><br><br>
 
 
 		<% if flash.has?(:message) %>
   	<%= flash[:message] %>
-		<% end %>
+		<% end %><br><br>
+
+		 <a href="/recipes/user_index"> Back to your list of recipes</a>
 		
 	</form>
 

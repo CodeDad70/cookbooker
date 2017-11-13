@@ -12,6 +12,9 @@
   }
 
   /* --- Welcome Page Styles --- */
+  small{
+    font-size: smaller;
+  }
   body {
     background-color: orange;
     color: #333;
