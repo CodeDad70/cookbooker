@@ -4,11 +4,12 @@
 	<title>CookBooker</title>
 </head>
 <body>
-	<h1>Welcome, <%=@user.username%></h1>
+	<h1>Welcome, <%=current_user.username%></h1>
 	<h4>Here are your recipes : </h4><br>
-	<%@recipes.each do |recipe|%>
+	
+	<%current_user.recipes.each do |recipe|%>
 	<li>
-		<a href="/recipes/<%=recipe.id%>"><%=recipe.name%></a> 
+		<a href="/recipes/<%=recipe.id%>"><%=recipe.name%> </a>
 	</li><br><br>
 	<%end%>
 
@@ -26,9 +27,6 @@
 			<%end%>
 		</li>
 
-	<form method="href" action="/users/logout">
-		<input type="submit" value=" Log Out "><br>
-	</form>
 
 
 </body>
