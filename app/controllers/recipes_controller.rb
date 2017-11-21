@@ -12,7 +12,7 @@ class RecipesController < ApplicationController
     erb :"/recipes/index"
   end
 
-  get "/recipes/user_index" do
+  get "/users/recipes/" do
     @user = current_user
     @recipes = @user.recipes
     @recipe_community = Recipe.all
@@ -73,15 +73,15 @@ class RecipesController < ApplicationController
   #--------------edit recipes----------------
 
   get '/recipes/:id/edit' do
-    @user = current_user
-    @recipe = Recipe.find_by(id: params[:id])
-      
-      if logged_in? && @user.id == @recipe.user_id
+    if logged_in? 
+      if @recipe = current_user.recipes.find_by(id: params[:id])
         erb :'/recipes/edit'
-      else
-        redirect 'users/login'    
-      end
+      else 
+        redirect to '/recipes'
+    else
+      redirect 'users/login'    
     end
+  end
 
     # patch '/recipes/:id' do
     #   @recipe = Recipe.find_by_id(params[:id])
@@ -100,55 +100,59 @@ class RecipesController < ApplicationController
     # end
 
     patch '/recipes/:id' do
-      @recipe = Recipe.find_by_id(params[:id])
+      if logged_in?
+        @recipe = Recipe.find_by_id(params[:id])
+        
       
-    
-      if logged_in? && params["name"] != "" && params["ingredients"]=="" && params["instructions"]== ""
-        @recipe.update(name: params["name"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
-      
-      elsif logged_in? && params["ingredients"] != "" && params["name"]==""  && params["instructions"]==""
-        @recipe.update(ingredients: params["ingredients"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        if params["name"] != "" && params["ingredients"]=="" && params["instructions"]== ""
+          @recipe.update(name: params["name"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
+        
+        elsif params["ingredients"] != "" && params["name"]==""  && params["instructions"]==""
+          @recipe.update(ingredients: params["ingredients"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
 
-      elsif logged_in? && params["instructions"] != "" && params["name"] == "" && params["ingredients"]=="" 
-        @recipe.update(instructions: params["instructions"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        elsif params["instructions"] != "" && params["name"] == "" && params["ingredients"]=="" 
+          @recipe.update(instructions: params["instructions"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
 
-      elsif logged_in? && params["name"] != "" && params["ingredients"]!="" && params["instructions"]== ""
-        @recipe.update(name: params["name"])
-        @recipe.update(ingredients: params["ingredients"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        elsif params["name"] != "" && params["ingredients"]!="" && params["instructions"]== ""
+          @recipe.update(name: params["name"])
+          @recipe.update(ingredients: params["ingredients"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
 
-      elsif logged_in? && params["ingredients"] != "" && params["instructions"]!="" && params["name"]== ""
-        @recipe.update(instructions: params["instructions"])
-        @recipe.update(ingredients: params["ingredients"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        elsif params["ingredients"] != "" && params["instructions"]!="" && params["name"]== ""
+          @recipe.update(instructions: params["instructions"])
+          @recipe.update(ingredients: params["ingredients"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
 
-      elsif logged_in? && params["name"] != "" && params["instructions"]!="" && params["ingredients"]== ""
-        @recipe.update(name: params["name"])
-        @recipe.update(instructions: params["instructions"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        elsif params["name"] != "" && params["instructions"]!="" && params["ingredients"]== ""
+          @recipe.update(name: params["name"])
+          @recipe.update(instructions: params["instructions"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
 
-      
-      elsif logged_in? && params["name"] == "" && params["instructions"] =="" && params["ingredients"]== ""
-        flash[:message] = "Please make a change to at least one field"
-        erb :"/recipes/edit"
-      
+        
+        elsif params["name"] == "" && params["instructions"] =="" && params["ingredients"]== ""
+          flash[:message] = "Please make a change to at least one field"
+          erb :"/recipes/edit"
+        
 
 
+        else 
+          @recipe.update(name: params["name"])
+          @recipe.update(ingredients: params["ingredients"])
+          @recipe.update(instructions: params["instructions"])
+          @recipe.save
+          redirect "/recipes/#{@recipe.id}"
+        end 
       else 
-        @recipe.update(name: params["name"])
-        @recipe.update(ingredients: params["ingredients"])
-        @recipe.update(instructions: params["instructions"])
-        @recipe.save
-        redirect "/recipes/#{@recipe.id}"
+        redirect '/users/login'
       
       end
     end

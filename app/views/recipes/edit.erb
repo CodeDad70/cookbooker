@@ -13,19 +13,19 @@
     <input id="hidden" type="hidden" name="_method" value="patch">
 
 		New Name:<br>
-		<input type="text" name="name"  placeholder="<%=@recipe.name%>"><br><br>
+		<input type="text" name="name" value="<%=@recipe.name%>"><br><br>
 
     <h4>Original Ingredients: <%=@recipe.ingredients%></h4><br>
      
     New Ingredients:<br>
-    <textarea rows="4" cols="50" name="ingredients" placeholder="<%=@recipe.ingredients%>"></textarea><br>
+    <textarea rows="4" cols="50" name="ingredients"><%= @recipe.ingredients %></textarea><br>
     <small>CookBooker tip - if you want a line break in your ingredient list just <br> add &lt;br&gt; after the ingredient. For example - "1 carrot &lt;br&gt;" </small><br><br>
 
     
     <h4>Original Instructions: <%=@recipe.instructions%></h4><br>
       
     New Instructions:<br>
-    <textarea rows="4" cols="50" name="instructions" placeholder="<%=@recipe.instructions%>"></textarea><br><br>
+    <textarea rows="4" cols="50" name="instructions" ><%=@recipe.instructions%></textarea><br><br>
       <button type="submit" value="submit">Submit</button><br><br> 
     
 

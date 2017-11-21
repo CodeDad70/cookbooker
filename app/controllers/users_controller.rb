@@ -22,10 +22,14 @@ class UsersController < ApplicationController
 			flash[:message] = "Username is taken - please try a different one."
 			erb :"/users/create_user"
 		else 
-			@user = User.create(username: params[:username], password: params[:password])
-			@user.save		
-			session[:user_id] = @user.id		
-			erb :"/recipes/index"
+			@user = User.new(username: params[:username], password: params[:password])
+      if @user.save  
+  			session[:user_id] = @user.id		
+  			redirect to '/recipes'
+      else 
+        flash[:message] "Error creating account"
+        erb :"/users/create_user"
+      end
 		end
 	end
 

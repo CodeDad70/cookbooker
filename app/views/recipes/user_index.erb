@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CookBooker</title>
+</head>
+<body>
+	<h1>Welcome, <%=@user.username%></h1>
+	<h4>Here are your recipes : </h4><br>
+	<%@recipes.each do |recipe|%>
+	<li>
+		<a href="/recipes/<%=recipe.id%>"><%=recipe.name%></a> 
+	</li><br><br>
+	<%end%>
+
+	<form method="href" action="/recipes/new">
+		<input type="submit" value=" Create a New Recipe "><br>
+	</form><br><br><br>
+
+
+
+	<h4>Here are the community recipes:</h4><br>
+	<%@recipe_community.each do |recipe|%>
+		<li>
+			<p><a href="/recipes/<%=recipe.id%>"><%=recipe.name%></a> by <%=recipe.user.username%>
+
+			<%end%>
+		</li>
+
+	<form method="href" action="/users/logout">
+		<input type="submit" value=" Log Out "><br>
+	</form>
+
+
+</body>
+</html>

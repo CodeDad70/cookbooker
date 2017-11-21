@@ -16,6 +16,30 @@
 <body>
   <div class="wrapper">
 
+    <!-- 
+
+    logged in routes 
+      /users/recipe -> Your Recipes
+      /recipes -> All Recipes
+      /recipes/new   -> Add Recipe
+      /logout -> Logout
+    logged out routes
+      rout url? -> name?
+      /users/login
+      /users/signup
+  
+  -->
+
+    <div> 
+      <% if !logged_in?%>
+       <a href="/users/login">Login</a>
+       <a href="/users/signup">Sign up</a>
+
+      <% else %>
+        <%#= other nav%>
+      <%end%>
+    </div>
+
       <%= yield %>
 
     <footer class="branding">
