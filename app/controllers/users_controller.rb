@@ -23,9 +23,13 @@ class UsersController < ApplicationController
       erb :"/users/create_user"
     else 
       @user = User.new(username: params[:username], password: params[:password])
-      @user.save    
-      session[:user_id] = @user.id    
-      erb :"/recipes/welcome"
+      if @user.save    
+        session[:user_id] = @user.id    
+        erb :"/recipes/welcome"
+      else 
+        flash[:message] = "Something went wrong - please try again"
+        erb :"/users/create_user"
+      end
     end
   end
 

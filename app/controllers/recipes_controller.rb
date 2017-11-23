@@ -9,14 +9,12 @@ class RecipesController < ApplicationController
   
   get '/recipes' do
     if logged_in?
-      redirect to "/recipes/user_index"
-
-      else redirect to "/recipes/community_index" 
+      redirect to "/recipes/community_index"
+      else redirect to "/users/login" 
     end
   end
 
   get "/recipes/user_index" do
-    @recipe_community = Recipe.all
     if logged_in?  
      erb :"/recipes/user_index"
     else
@@ -63,22 +61,26 @@ class RecipesController < ApplicationController
   #-------------recipe pages----------------
 
   get '/recipes/:id' do
-    @recipe = Recipe.find_by(id: params[:id])
-    if logged_in? && current_user.id == @recipe.user_id 
-      erb :"/recipes/show"
+    if logged_in?
+      @recipe = Recipe.find_by(id: params[:id])     
+      erb :'/recipes/show' 
     else
-      erb :"/recipes/view"
+      redirect 'users/login'    
     end
-  end 
+  end
 
 
   #--------------edit recipes----------------
 
+
   get '/recipes/:id/edit' do
     if logged_in?
-      @recipe = Recipe.find_by(id: params[:id])     
-      current_user.id == @recipe.user_id
-      erb :'/recipes/edit' 
+      @recipe = Recipe.find_by(id: params[:id]) 
+      if @recipe.user_id == current_user.id    
+        erb :'/recipes/edit'
+      else 
+        erb :"/recipes/user_index"
+      end
     else
       redirect 'users/login'    
     end
@@ -98,7 +100,7 @@ class RecipesController < ApplicationController
 
 
 
-   delete '/recipes/:id/delete' do
+   delete '/recipes/:id' do
     if logged_in?
       @recipe = Recipe.find_by_id(params[:id])
       if @recipe.user_id == current_user.id

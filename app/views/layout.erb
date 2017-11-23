@@ -13,26 +13,6 @@
 <body>
   <div class="wrapper">
 
-    <!-- 
-  TODO:
-    logged in routes 
-      /users/recipe -> Your Recipes
-      /recipes -> All Recipes
-      /recipes/new   -> Add Recipe
-      /logout -> Logout
-    logged out routes
-      rout url? -> name?
-      /users/login
-      /users/signup
-  
-  User current_user and logged_in? methods in your view instead of @user = current_user
-
-  Finish refactoring recipes patch route
-
-  Authenticate routes that require user before doing any other business logic
-
-  -->
-
     <div> 
       <% if !logged_in?%>
        <a href="/users/login">Login</a> - 
@@ -58,8 +38,5 @@
   </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-  <!--[if lt IE 7]>
-    <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.2/CFInstall.min.js"></script>
-    <script>window.attachEvent("onload",function(){CFInstall.check({mode:"overlay"})})</script>
-  <![endif]-->
+  
 </body>
